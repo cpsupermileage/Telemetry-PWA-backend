@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      '@electric-sql/client':
+        specifier: ^1.0.14
+        version: 1.0.14
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -73,6 +76,10 @@ packages:
   '@drizzle-team/brocli@0.10.2':
     resolution:
       { integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w== }
+
+  '@electric-sql/client@1.0.14':
+    resolution:
+      { integrity: sha512-LtPAfeMxXRiYS0hyDQ5hue2PjljUiK9stvzsVyVb4nwxWQxfOWTSF42bHTs/o5i3x1T4kAQ7mwHpxa4A+f8X7Q== }
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution:
@@ -487,6 +494,10 @@ packages:
       { integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ== }
     engines: { node: '>=18.18' }
 
+  '@microsoft/fetch-event-source@2.0.1':
+    resolution:
+      { integrity: sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA== }
+
   '@nodelib/fs.scandir@2.1.5':
     resolution:
       { integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g== }
@@ -501,6 +512,12 @@ packages:
     resolution:
       { integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg== }
     engines: { node: '>= 8' }
+
+  '@rollup/rollup-darwin-arm64@4.52.5':
+    resolution:
+      { integrity: sha512-takF3CR71mCAGA+v794QUZ0b6ZSrgJkArC+gUiG6LB6TQty9T0Mqh3m2ImRBOxS2IeYBo4lKWIieSvnEk2OQWA== }
+    cpu: [arm64]
+    os: [darwin]
 
   '@tsconfig/node22@22.0.2':
     resolution:
@@ -1816,6 +1833,12 @@ packages:
 snapshots:
   '@drizzle-team/brocli@0.10.2': {}
 
+  '@electric-sql/client@1.0.14':
+    dependencies:
+      '@microsoft/fetch-event-source': 2.0.1
+    optionalDependencies:
+      '@rollup/rollup-darwin-arm64': 4.52.5
+
   '@esbuild-kit/core-utils@3.3.2':
     dependencies:
       esbuild: 0.18.20
@@ -2027,6 +2050,8 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
+  '@microsoft/fetch-event-source@2.0.1': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -2038,6 +2063,9 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
+
+  '@rollup/rollup-darwin-arm64@4.52.5':
+    optional: true
 
   '@tsconfig/node22@22.0.2': {}
 

@@ -24,9 +24,9 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/many', async (req, res) => {
-	const trip = z.array(tripInsertSchema).min(1).max(100).parse(req.body);
-	await db.insert(table.tripsTable).values(trip);
-	res.status(200).json(trip);
+	const trips = z.array(tripInsertSchema).min(1).max(100).parse(req.body);
+	await db.insert(table.tripsTable).values(trips);
+	res.status(200).json(trips);
 });
 
 const tripUpdateSchema = createUpdateSchema(table.tripsTable, {

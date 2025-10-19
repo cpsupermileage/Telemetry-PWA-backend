@@ -23,6 +23,12 @@ router.post('/', async (req, res) => {
 	res.status(200).json(trip);
 });
 
+router.post('/many', async (req, res) => {
+	const trip = z.array(tripInsertSchema).min(1).max(100).parse(req.body);
+	await db.insert(table.tripsTable).values(trip);
+	res.status(200).json(trip);
+});
+
 const tripUpdateSchema = createUpdateSchema(table.tripsTable, {
 	id: z.undefined(),
 });
@@ -51,3 +57,5 @@ router.delete('/:id', async (req, res) => {
 
 	res.status(200).json({});
 });
+
+export default router;

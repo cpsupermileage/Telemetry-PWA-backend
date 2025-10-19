@@ -19,13 +19,13 @@ const tripIdSchema = tripInsertSchema.shape.id.unwrap();
 
 router.post('/', async (req, res) => {
 	const trip = tripInsertSchema.parse(req.body);
-	await db.insert(table.tripsTable).values(trip);
+	await db.insert(table.tripsTable).values(trip).onConflictDoNothing();
 	res.status(200).json(trip);
 });
 
 router.post('/many', async (req, res) => {
 	const trips = z.array(tripInsertSchema).min(1).max(100).parse(req.body);
-	await db.insert(table.tripsTable).values(trips);
+	await db.insert(table.tripsTable).values(trips).onConflictDoNothing();
 	res.status(200).json(trips);
 });
 

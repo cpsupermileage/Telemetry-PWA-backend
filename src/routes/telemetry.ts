@@ -49,13 +49,13 @@ const tripIdSchema = telemetryInsertSchema.shape.tripId;
 
 router.post('/', async (req, res) => {
 	const entry = telemetryInsertSchema.parse(req.body);
-	await db.insert(table.telemetryTable).values(entry);
+	await db.insert(table.telemetryTable).values(entry).onConflictDoNothing();
 	res.status(200).json(entry);
 });
 
 router.post('/many', async (req, res) => {
 	const entries = z.array(telemetryInsertSchema).min(1).max(100).parse(req.body);
-	await db.insert(table.telemetryTable).values(entries);
+	await db.insert(table.telemetryTable).values(entries).onConflictDoNothing();
 	res.status(200).json(entries);
 });
 

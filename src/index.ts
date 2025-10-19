@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import telemetry from '#routes/telemetry.js';
 import trips from '#routes/trips.js';
+import ApiError from '#ui/ApiError.js';
 import 'dotenv/config';
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
+import { ZodError } from 'zod';
 
 const app = express();
 const port = process.env.PORT ?? '3000';
@@ -10,6 +13,21 @@ app.use(express.json());
 
 app.use('/api/trips', trips);
 app.use('/api/telemetry', telemetry);
+
+app.use(((err, res, req, next) => {
+	if (err instanceof ZodError) {
+		next(new ApiError(403, err.issues[0].message));
+	} else next();
+}) satisfies ErrorRequestHandler);
+
+app.use(((err, res, req, next) => {
+	if (err instanceof ApiError) {
+		return req.status(err.status).json({ message: err.message });
+	} else {
+		console.error(err);
+		return req.status(500).json({ message: 'Internal server error' });
+	}
+}) satisfies ErrorRequestHandler);
 
 app.listen(port, () => {
 	console.log(`App listening on port ${port}`);

@@ -1,0 +1,2 @@
+pnpm run type-check
+pnpx lint-staged

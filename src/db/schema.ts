@@ -9,7 +9,9 @@ export const tripsTable = pgTable('trips', {
 
 export const telemetryTable = pgTable('telemetry', {
 	id: integer().primaryKey().generatedByDefaultAsIdentity(),
-	tripId: integer().references(() => tripsTable.id, { onDelete: 'cascade' }),
+	tripId: integer()
+		.references(() => tripsTable.id, { onDelete: 'cascade' })
+		.notNull(),
 	time: date().notNull(),
 	// data values
 	tempMosfet: real(),

@@ -23,7 +23,7 @@ export const telemetryTable = pgTable(
 		tacho: real(),
 		rpm: real(),
 		volts: real(),
-		wattHours: doublePrecision(),
+		wattHours: real(),
 		error: smallint(),
 		// phone values
 		lat: doublePrecision(),

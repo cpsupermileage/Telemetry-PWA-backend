@@ -4,7 +4,8 @@ export const tripsTable = pgTable('trips', {
 	id: integer().primaryKey().generatedByDefaultAsIdentity(),
 	name: varchar({ length: 512 }).notNull(),
 	type: integer().notNull(),
-	startedAt: date().notNull(),
+	createdAt: date().notNull(),
+	startedAt: date(),
 });
 
 export const telemetryTable = pgTable(

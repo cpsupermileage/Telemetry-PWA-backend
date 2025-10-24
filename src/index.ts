@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import telemetry from '#routes/telemetry.js';
 import trips from '#routes/trips.js';
-import ApiError from '#ui/ApiError.js';
+import ApiError from '#util/ApiError.js';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';

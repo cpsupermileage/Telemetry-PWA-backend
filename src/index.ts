@@ -3,12 +3,14 @@ import telemetry from '#routes/telemetry.js';
 import trips from '#routes/trips.js';
 import ApiError from '#util/ApiError.js';
 import 'dotenv/config';
+import cors from 'cors';
 import express, { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 
 const app = express();
 const port = process.env.PORT ?? '3000';
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/trips', trips);

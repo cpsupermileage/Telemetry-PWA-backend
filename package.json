@@ -32,6 +32,7 @@
 	"packageManager": "pnpm@10.11.0",
 	"dependencies": {
 		"@electric-sql/client": "^1.0.14",
+		"cors": "^2.8.5",
 		"dotenv": "^17.2.3",
 		"drizzle-orm": "^0.44.6",
 		"drizzle-zod": "^0.8.3",
@@ -42,6 +43,7 @@
 	"devDependencies": {
 		"@eslint/js": "^9.38.0",
 		"@tsconfig/node22": "^22.0.2",
+		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.3",
 		"@types/node": "^24.8.1",
 		"@types/pg": "^8.15.5",

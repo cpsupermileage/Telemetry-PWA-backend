@@ -9,22 +9,24 @@ const router = express.Router();
 if (!process.env.ELECTRIC_ORIGIN) console.error('ELECTRIC_ORIGIN not defined');
 if (!process.env.ELECTRIC_SECRET) console.error('ELECTRIC_SECRET not defined');
 
-router.get('/:tripId', async (req) => {
-	const tripId = tripIdSchema.parse(req.body);
-	const url = new URL(req.url);
+router.get('/:tripId', async (req: express.Request<unknown, unknown, unknown, Record<string, string>>, res) => {
+	if (!process.env.ELECTRIC_SECRET || !process.env.ELECTRIC_ORIGIN)
+		throw new Error('ELECTRIC_ORIGIN and/or ELECTRIC_SECRET not set');
 
+	const tripId = tripIdSchema.parse(req.body);
 	const originUrl = new URL(`/v1/shape`, process.env.ELECTRIC_ORIGIN);
 
 	// Only pass through Electric protocol parameters
-	url.searchParams.forEach((value, key) => {
+	Object.entries(req.query).forEach(([key, value]) => {
 		if (ELECTRIC_PROTOCOL_QUERY_PARAMS.includes(key)) {
 			originUrl.searchParams.set(key, value);
 		}
 	});
 
 	// Set the table server-side - not from client params
-	originUrl.searchParams.set(`table`, `telemetry`);
+	originUrl.searchParams.set(`table`, `trips`);
 	originUrl.searchParams.set(`where`, `${table.telemetryTable.id.name} = '${tripId.toString()}'`);
+	originUrl.searchParams.set(`secret`, process.env.ELECTRIC_SECRET);
 
 	const response = await fetch(originUrl);
 
@@ -37,11 +39,7 @@ router.get('/:tripId', async (req) => {
 	headers.delete(`content-encoding`);
 	headers.delete(`content-length`);
 
-	return new Response(response.body, {
-		status: response.status,
-		statusText: response.statusText,
-		headers,
-	});
+	res.status(response.status).setHeaders(headers).send(response.body);
 });
 
 const telemetryInsertSchema = createInsertSchema(table.telemetryTable);

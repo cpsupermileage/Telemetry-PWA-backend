@@ -19,7 +19,7 @@ app.use('/api/telemetry', telemetry);
 app.use(((err, res, req, next) => {
 	if (err instanceof ZodError) {
 		next(new ApiError(403, err.issues[0].message));
-	} else next();
+	} else next(err);
 }) satisfies ErrorRequestHandler);
 
 app.use(((err, res, req, next) => {

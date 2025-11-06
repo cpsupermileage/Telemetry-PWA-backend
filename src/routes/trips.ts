@@ -1,9 +1,11 @@
 import { db, table } from '#db/index.js';
+import ApiError from '#util/ApiError.js';
 import buildConflictUpdateColumns from '#util/buildConflictUpdateColumns.js';
 import { ELECTRIC_PROTOCOL_QUERY_PARAMS } from '@electric-sql/client';
 import { eq } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import express from 'express';
+import { Readable } from 'node:stream';
 import { z } from 'zod/v4';
 
 const router = express.Router();
@@ -36,7 +38,10 @@ router.get('/', async (req: express.Request<unknown, unknown, unknown, Record<st
 	headers.delete(`content-encoding`);
 	headers.delete(`content-length`);
 
-	res.status(response.status).setHeaders(headers).send(response.body);
+	res.status(response.status).setHeaders(headers);
+
+	if (response.body == null) throw new ApiError(500, 'Sync Service Error');
+	Readable.fromWeb(response.body).pipe(res);
 });
 
 const tripInsertSchema = createInsertSchema(table.tripsTable);

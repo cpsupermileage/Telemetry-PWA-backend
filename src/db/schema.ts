@@ -6,6 +6,7 @@ export const tripsTable = pgTable('trips', {
 	type: integer('type').notNull(),
 	createdAt: timestamp('created_at', { mode: 'string' }).notNull(),
 	startedAt: timestamp('started_at', { mode: 'string' }),
+	endedAt: timestamp('ended_at', { mode: 'string' }),
 });
 
 export const telemetryTable = pgTable(

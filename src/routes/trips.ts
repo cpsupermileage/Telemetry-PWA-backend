@@ -81,7 +81,7 @@ router.post('/', async (req, res) => {
 		.values(trip)
 		.onConflictDoUpdate({
 			target: table.tripsTable.id,
-			set: buildConflictUpdateColumns(table.tripsTable, ['name', 'type', 'createdAt', 'startedAt']),
+			set: buildConflictUpdateColumns(table.tripsTable, ['name', 'type', 'createdAt', 'startedAt', 'endedAt']),
 		});
 	res.status(200).json(trip);
 });
@@ -93,7 +93,7 @@ router.post('/many', async (req, res) => {
 		.values(trips)
 		.onConflictDoUpdate({
 			target: table.tripsTable.id,
-			set: buildConflictUpdateColumns(table.tripsTable, ['name', 'type', 'createdAt', 'startedAt']),
+			set: buildConflictUpdateColumns(table.tripsTable, ['name', 'type', 'createdAt', 'startedAt', 'endedAt']),
 		});
 	res.status(200).json(trips);
 });

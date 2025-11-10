@@ -16,18 +16,18 @@ app.use(express.json());
 app.use('/api/trips', trips);
 app.use('/api/telemetry', telemetry);
 
-app.use(((err, res, req, next) => {
+app.use(((err, req, res, next) => {
 	if (err instanceof ZodError) {
 		next(new ApiError(403, err.issues[0].message));
 	} else next(err);
 }) satisfies ErrorRequestHandler);
 
-app.use(((err, res, req, next) => {
+app.use(((err, req, res, next) => {
 	if (err instanceof ApiError) {
-		return req.status(err.status).json({ message: err.message });
+		if (!res.headersSent) res.status(err.status).json({ message: err.message });
 	} else {
 		console.error(err);
-		return req.status(500).json({ message: 'Internal server error' });
+		if (!res.headersSent) res.status(500).json({ message: 'Internal server error' });
 	}
 }) satisfies ErrorRequestHandler);
 

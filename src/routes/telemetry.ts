@@ -7,20 +7,22 @@ import { Readable } from 'stream';
 import { pipeline } from 'stream/promises';
 import { z } from 'zod/v4';
 
+import { tripIdSchema } from './trips';
+
 const router = express.Router();
 
 if (!process.env.ELECTRIC_ORIGIN) console.error('ELECTRIC_ORIGIN not defined');
 if (!process.env.ELECTRIC_SECRET) console.error('ELECTRIC_SECRET not defined');
 
-router.get('/:tripId', async (req: express.Request<unknown, unknown, unknown, Record<string, string>>, res) => {
+router.get('/:tripId', async (req, res) => {
 	if (!process.env.ELECTRIC_SECRET || !process.env.ELECTRIC_ORIGIN)
 		throw new Error('ELECTRIC_ORIGIN and/or ELECTRIC_SECRET not set');
 
-	const tripId = tripIdSchema.parse(req.body);
+	const tripId = tripIdSchema.parse(req.params.tripId);
 	const electricUrl = new URL(`/v1/shape`, process.env.ELECTRIC_ORIGIN);
 
 	// Only pass through Electric protocol parameters
-	Object.entries(req.query).forEach(([key, value]) => {
+	Object.entries(req.query as Record<string, string>).forEach(([key, value]) => {
 		if (ELECTRIC_PROTOCOL_QUERY_PARAMS.includes(key)) {
 			electricUrl.searchParams.set(key, value);
 		}
@@ -75,7 +77,6 @@ router.get('/:tripId', async (req: express.Request<unknown, unknown, unknown, Re
 });
 
 const telemetryInsertSchema = createInsertSchema(table.telemetryTable);
-const tripIdSchema = telemetryInsertSchema.shape.tripId;
 
 router.post('/', async (req, res) => {
 	const entry = telemetryInsertSchema.parse(req.body);

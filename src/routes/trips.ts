@@ -72,7 +72,10 @@ router.get('/', async (req: express.Request<unknown, unknown, unknown, Record<st
 });
 
 const tripInsertSchema = createInsertSchema(table.tripsTable);
-const tripIdSchema = tripInsertSchema.shape.id.unwrap();
+export const tripIdSchema = z.coerce
+	.number()
+	.min(0)
+	.max(2 ** 31);
 
 router.post('/', async (req, res) => {
 	const trip = tripInsertSchema.parse(req.body);

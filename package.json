@@ -34,7 +34,7 @@
 		"@electric-sql/client": "^1.0.14",
 		"cors": "^2.8.5",
 		"dotenv": "^17.2.3",
-		"drizzle-orm": "^0.44.6",
+		"drizzle-orm": "^0.44.7",
 		"drizzle-zod": "^0.8.3",
 		"express": "^5.1.0",
 		"pg": "^8.16.3",

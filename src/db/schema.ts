@@ -1,12 +1,12 @@
-import { doublePrecision, index, integer, pgTable, real, smallint, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { bigint, doublePrecision, index, integer, pgTable, real, smallint, varchar } from 'drizzle-orm/pg-core';
 
 export const tripsTable = pgTable('trips', {
 	id: integer('id').primaryKey().generatedByDefaultAsIdentity(),
 	name: varchar('name', { length: 512 }).notNull(),
 	type: integer('type').notNull(),
-	createdAt: timestamp('created_at', { mode: 'string' }).notNull(),
-	startedAt: timestamp('started_at', { mode: 'string' }),
-	endedAt: timestamp('ended_at', { mode: 'string' }),
+	createdAt: bigint('created_at', { mode: 'number' }).notNull(),
+	startedAt: bigint('started_at', { mode: 'number' }),
+	endedAt: bigint('ended_at', { mode: 'number' }),
 });
 
 export const telemetryTable = pgTable(
@@ -14,7 +14,7 @@ export const telemetryTable = pgTable(
 	{
 		id: integer('id').primaryKey().generatedByDefaultAsIdentity(),
 		tripId: integer('trip_id').notNull(),
-		time: timestamp('time', { mode: 'string' }).notNull(),
+		time: bigint('time', { mode: 'number' }).notNull(),
 		// data values
 		tempMosfet: real('temp_mosfet'),
 		tempMotor: real('temp_motor'),

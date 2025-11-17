@@ -29,6 +29,7 @@ export const telemetryTable = pgTable(
 		// phone values
 		lat: doublePrecision('lat'),
 		long: doublePrecision('long'),
+		heading: real('heading'),
 	},
 	(table) => [index('idx_tripId').on(table.tripId)]
 );

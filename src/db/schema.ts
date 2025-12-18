@@ -21,7 +21,7 @@ export const telemetryTable = pgTable(
 		motorCurrent: real('motor_current'),
 		inputCurrent: real('input_current'),
 		dutyCycle: real('duty_cycle'),
-		tacho: real('tacho'),
+		tacho: integer('tacho'),
 		rpm: real('rpm'),
 		volts: real('volts'),
 		wattHours: real('watt_hours'),

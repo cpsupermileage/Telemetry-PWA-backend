@@ -64,7 +64,11 @@ router.get('/:tripId', async (req, res) => {
 		await pipeline(nodeStream, res);
 	} catch (error) {
 		// Ignore premature close errors - these happen when clients disconnect early
-		if (error instanceof Error && 'code' in error && error.code === `ERR_STREAM_PREMATURE_CLOSE`) {
+		if (
+			error instanceof Error &&
+			'code' in error &&
+			(error.code === 'ERR_STREAM_PREMATURE_CLOSE' || error.code === 'ERR_STREAM_UNABLE_TO_PIPE')
+		) {
 			return;
 		}
 

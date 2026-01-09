@@ -28,9 +28,11 @@ router.get('/:tripId', async (req, res) => {
 		}
 	});
 
+	console.log(tripId);
+
 	// Set the table server-side - not from client params
-	electricUrl.searchParams.set(`table`, `trips`);
-	electricUrl.searchParams.set(`where`, `${table.telemetryTable.id.name} = '${tripId.toString()}'`);
+	electricUrl.searchParams.set(`table`, 'telemetry');
+	electricUrl.searchParams.set(`where`, `${table.telemetryTable.tripId.name} = '${tripId.toString()}'`);
 	electricUrl.searchParams.set(`secret`, process.env.ELECTRIC_SECRET);
 
 	try {

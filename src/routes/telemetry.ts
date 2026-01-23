@@ -1,5 +1,3 @@
-import { db, table } from '#db/index.js';
-import ApiError from '#util/ApiError.js';
 import { ELECTRIC_PROTOCOL_QUERY_PARAMS } from '@electric-sql/client';
 import { createInsertSchema } from 'drizzle-zod';
 import express from 'express';
@@ -7,6 +5,8 @@ import { Readable } from 'stream';
 import { pipeline } from 'stream/promises';
 import { z } from 'zod/v4';
 
+import { db, table } from '../db/index.js';
+import ApiError from '../util/ApiError.js';
 import { tripIdSchema } from './trips';
 
 const router = express.Router();

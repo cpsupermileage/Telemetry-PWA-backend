@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import telemetry from '#routes/telemetry.js';
-import trips from '#routes/trips.js';
-import ApiError from '#util/ApiError.js';
-import 'dotenv/config';
 import cors from 'cors';
 import express, { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
+import 'dotenv/config';
+
+import telemetry from './routes/telemetry';
+import trips from './routes/trips.js';
+import ApiError from './util/ApiError.js';
 
 const app = express();
 const port = process.env.PORT ?? '3000';

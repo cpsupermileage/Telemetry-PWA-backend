@@ -1,6 +1,10 @@
-# Telemetry-PWA-backend
-
+# Telemetry-PWA-backend (old)
 Backend service that secures access to the database and electric service
+
+---
+> [!WARNING]  
+> This code is no longer used, as the backend infrastructure has changed to use cloudflare workers, and been combined into the original [Telemetry-PWA](https://github.com/cpsupermileage/Telemetry-PWA) repository.
+---
 
 ## Setting up services
 
